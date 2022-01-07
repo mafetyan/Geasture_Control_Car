@@ -1,0 +1,268 @@
+
+Slave.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000162  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000001b6  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000001b6  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001e8  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000068  00000000  00000000  00000224  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000007b8  00000000  00000000  0000028c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000671  00000000  00000000  00000a44  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000003d3  00000000  00000000  000010b5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000b8  00000000  00000000  00001488  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000393  00000000  00000000  00001540  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000282  00000000  00000000  000018d3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000048  00000000  00000000  00001b55  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 36 00 	call	0x6c	; 0x6c <main>
+  64:	0c 94 af 00 	jmp	0x15e	; 0x15e <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <main>:
+#include "BIT_MATH.h"
+
+int main(void)
+{
+
+	DDRC = 0b11111100;
+  6c:	8c ef       	ldi	r24, 0xFC	; 252
+  6e:	84 bb       	out	0x14, r24	; 20
+	DDRD = 0b00110000;
+  70:	80 e3       	ldi	r24, 0x30	; 48
+  72:	81 bb       	out	0x11, r24	; 17
+	Uart_init(9600);
+  74:	60 e8       	ldi	r22, 0x80	; 128
+  76:	75 e2       	ldi	r23, 0x25	; 37
+  78:	80 e0       	ldi	r24, 0x00	; 0
+  7a:	90 e0       	ldi	r25, 0x00	; 0
+  7c:	0e 94 68 00 	call	0xd0	; 0xd0 <Uart_init>
+			PORTD = 0b00110000;
+			PORTC = 0b10110000;
+		}
+		else if (x == 0b00001000)
+		{
+			PORTD = 0b00110000;
+  80:	c0 e3       	ldi	r28, 0x30	; 48
+			PORTC = 0b11001000;
+  82:	0f 2e       	mov	r0, r31
+  84:	f8 ec       	ldi	r31, 0xC8	; 200
+  86:	ff 2e       	mov	r15, r31
+  88:	f0 2d       	mov	r31, r0
+		}
+		
+		else if (x == 0b00000100)
+		{
+			PORTD = 0b00110000;
+			PORTC = 0b10110000;
+  8a:	00 eb       	ldi	r16, 0xB0	; 176
+		}
+		
+		else if (x == 0b00000010)
+		{
+			PORTD = 0b00110000;
+			PORTC = 0b11010000;
+  8c:	10 ed       	ldi	r17, 0xD0	; 208
+    {
+		x = UART_recieve_byte();
+		if (x == 0b00000001)
+		{
+			PORTD = 0b00110000;
+			PORTC = 0b00101100;
+  8e:	dc e2       	ldi	r29, 0x2C	; 44
+	Uart_init(9600);
+	int x;
+	
+    while (1) 
+    {
+		x = UART_recieve_byte();
+  90:	0e 94 89 00 	call	0x112	; 0x112 <UART_recieve_byte>
+  94:	90 e0       	ldi	r25, 0x00	; 0
+		if (x == 0b00000001)
+  96:	81 30       	cpi	r24, 0x01	; 1
+  98:	91 05       	cpc	r25, r1
+  9a:	19 f4       	brne	.+6      	; 0xa2 <main+0x36>
+		{
+			PORTD = 0b00110000;
+  9c:	c2 bb       	out	0x12, r28	; 18
+			PORTC = 0b00101100;
+  9e:	d5 bb       	out	0x15, r29	; 21
+  a0:	f7 cf       	rjmp	.-18     	; 0x90 <main+0x24>
+		}
+		
+		else if (x == 0b00000010)
+  a2:	82 30       	cpi	r24, 0x02	; 2
+  a4:	91 05       	cpc	r25, r1
+  a6:	19 f4       	brne	.+6      	; 0xae <main+0x42>
+		{
+			PORTD = 0b00110000;
+  a8:	c2 bb       	out	0x12, r28	; 18
+			PORTC = 0b11010000;
+  aa:	15 bb       	out	0x15, r17	; 21
+  ac:	f1 cf       	rjmp	.-30     	; 0x90 <main+0x24>
+		}
+		
+		else if (x == 0b00000100)
+  ae:	84 30       	cpi	r24, 0x04	; 4
+  b0:	91 05       	cpc	r25, r1
+  b2:	19 f4       	brne	.+6      	; 0xba <main+0x4e>
+		{
+			PORTD = 0b00110000;
+  b4:	c2 bb       	out	0x12, r28	; 18
+			PORTC = 0b10110000;
+  b6:	05 bb       	out	0x15, r16	; 21
+  b8:	eb cf       	rjmp	.-42     	; 0x90 <main+0x24>
+		}
+		else if (x == 0b00001000)
+  ba:	88 30       	cpi	r24, 0x08	; 8
+  bc:	91 05       	cpc	r25, r1
+  be:	19 f4       	brne	.+6      	; 0xc6 <main+0x5a>
+		{
+			PORTD = 0b00110000;
+  c0:	c2 bb       	out	0x12, r28	; 18
+			PORTC = 0b11001000;
+  c2:	f5 ba       	out	0x15, r15	; 21
+  c4:	e5 cf       	rjmp	.-54     	; 0x90 <main+0x24>
+		}
+		else if (x == 0b00010000)
+  c6:	40 97       	sbiw	r24, 0x10	; 16
+  c8:	19 f7       	brne	.-58     	; 0x90 <main+0x24>
+		{
+			PORTD = 0b00000000;
+  ca:	12 ba       	out	0x12, r1	; 18
+			PORTC = 0b00000000;
+  cc:	15 ba       	out	0x15, r1	; 21
+  ce:	e0 cf       	rjmp	.-64     	; 0x90 <main+0x24>
+
+000000d0 <Uart_init>:
+  d0:	28 e1       	ldi	r18, 0x18	; 24
+  d2:	2a b9       	out	0x0a, r18	; 10
+  d4:	26 e8       	ldi	r18, 0x86	; 134
+  d6:	20 bd       	out	0x20, r18	; 32
+  d8:	dc 01       	movw	r26, r24
+  da:	cb 01       	movw	r24, r22
+  dc:	88 0f       	add	r24, r24
+  de:	99 1f       	adc	r25, r25
+  e0:	aa 1f       	adc	r26, r26
+  e2:	bb 1f       	adc	r27, r27
+  e4:	88 0f       	add	r24, r24
+  e6:	99 1f       	adc	r25, r25
+  e8:	aa 1f       	adc	r26, r26
+  ea:	bb 1f       	adc	r27, r27
+  ec:	9c 01       	movw	r18, r24
+  ee:	ad 01       	movw	r20, r26
+  f0:	22 0f       	add	r18, r18
+  f2:	33 1f       	adc	r19, r19
+  f4:	44 1f       	adc	r20, r20
+  f6:	55 1f       	adc	r21, r21
+  f8:	22 0f       	add	r18, r18
+  fa:	33 1f       	adc	r19, r19
+  fc:	44 1f       	adc	r20, r20
+  fe:	55 1f       	adc	r21, r21
+ 100:	60 e0       	ldi	r22, 0x00	; 0
+ 102:	74 e2       	ldi	r23, 0x24	; 36
+ 104:	84 ef       	ldi	r24, 0xF4	; 244
+ 106:	90 e0       	ldi	r25, 0x00	; 0
+ 108:	0e 94 8d 00 	call	0x11a	; 0x11a <__udivmodsi4>
+ 10c:	21 50       	subi	r18, 0x01	; 1
+ 10e:	29 b9       	out	0x09, r18	; 9
+ 110:	08 95       	ret
+
+00000112 <UART_recieve_byte>:
+ 112:	5f 9b       	sbis	0x0b, 7	; 11
+ 114:	fe cf       	rjmp	.-4      	; 0x112 <UART_recieve_byte>
+ 116:	8c b1       	in	r24, 0x0c	; 12
+ 118:	08 95       	ret
+
+0000011a <__udivmodsi4>:
+ 11a:	a1 e2       	ldi	r26, 0x21	; 33
+ 11c:	1a 2e       	mov	r1, r26
+ 11e:	aa 1b       	sub	r26, r26
+ 120:	bb 1b       	sub	r27, r27
+ 122:	fd 01       	movw	r30, r26
+ 124:	0d c0       	rjmp	.+26     	; 0x140 <__udivmodsi4_ep>
+
+00000126 <__udivmodsi4_loop>:
+ 126:	aa 1f       	adc	r26, r26
+ 128:	bb 1f       	adc	r27, r27
+ 12a:	ee 1f       	adc	r30, r30
+ 12c:	ff 1f       	adc	r31, r31
+ 12e:	a2 17       	cp	r26, r18
+ 130:	b3 07       	cpc	r27, r19
+ 132:	e4 07       	cpc	r30, r20
+ 134:	f5 07       	cpc	r31, r21
+ 136:	20 f0       	brcs	.+8      	; 0x140 <__udivmodsi4_ep>
+ 138:	a2 1b       	sub	r26, r18
+ 13a:	b3 0b       	sbc	r27, r19
+ 13c:	e4 0b       	sbc	r30, r20
+ 13e:	f5 0b       	sbc	r31, r21
+
+00000140 <__udivmodsi4_ep>:
+ 140:	66 1f       	adc	r22, r22
+ 142:	77 1f       	adc	r23, r23
+ 144:	88 1f       	adc	r24, r24
+ 146:	99 1f       	adc	r25, r25
+ 148:	1a 94       	dec	r1
+ 14a:	69 f7       	brne	.-38     	; 0x126 <__udivmodsi4_loop>
+ 14c:	60 95       	com	r22
+ 14e:	70 95       	com	r23
+ 150:	80 95       	com	r24
+ 152:	90 95       	com	r25
+ 154:	9b 01       	movw	r18, r22
+ 156:	ac 01       	movw	r20, r24
+ 158:	bd 01       	movw	r22, r26
+ 15a:	cf 01       	movw	r24, r30
+ 15c:	08 95       	ret
+
+0000015e <_exit>:
+ 15e:	f8 94       	cli
+
+00000160 <__stop_program>:
+ 160:	ff cf       	rjmp	.-2      	; 0x160 <__stop_program>
